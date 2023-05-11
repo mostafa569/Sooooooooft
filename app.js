@@ -20,10 +20,6 @@ app.set('views',path.join(__dirname,'views'));
 app.set('view engine', 'ejs');
 
 
-
-
-
-
 var port=3000;
 app.listen(port,()=>{
   console.log('listening to port'+port);
@@ -68,6 +64,8 @@ app.use('/login',login);
 
 
 
+const adminPages = require('./routes/adminPages');
+app.use('/admin-area',adminPages);
 
 
 
