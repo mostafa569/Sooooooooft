@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link rel="stylesheet" href="/css/all.min.css">
+  <link rel="stylesheet" href="/css/doctorPage.css">
+  <title>upload File</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.8/xlsx.full.min.js"></script>
+
+
+
+
+  <style>
+    #custom-file-input {
+      color: transparent;
+    }
+
+    #custom-file-input::-webkit-file-upload-button {
+      visibility: hidden;
+    }
+
+    #custom-file-input::before {
+      content: 'Select some files';
+      color: black;
+      display: inline-block;
+      background: -webkit-linear-gradient(top, #f9f9f9, #e3e3e3);
+      border: 1px solid #999;
+      border-radius: 5px;
+      padding: 7px 7px;
+      margin: 5px;
+      outline: none;
+      white-space: nowrap;
+      cursor: pointer;
+      text-shadow: 1px 1px #f1f1f1;
+      font-weight: 700;
+      font-size: 10pt;
+    }
+
+
+    #button {
+      background: #eae8ea;
+      padding: 15px;
+      border-radius: 5px;
+      margin: 10px;
+
+    }
+
+    .anm {
+      animation: color-animation 4s linear infinite;
+    }
+
+    .h11 {
+      font-family: "Times New Roman", Times, serif;
+      font-size: 2.2rem;
+      letter-spacing: 0.12rem;
+      cursor: pointer;
+
+      --color-1: #DF8453;
+      --color-2: #3D8DAE;
+      --color-3: #E4A9A8;
+    }
+
+    .title-word {
+      animation: color-animation 4s linear infinite;
+    }
+
+    .title-word-1 {
+      --color-1: #DF8453;
+      --color-2: #3D8DAE;
+      --color-3: #E4A9A8;
+    }
+
+    .title-word-2 {
+      --color-1: #DBAD4A;
+      --color-2: #ACCFCB;
+      --color-3: #17494D;
+    }
+
+    .title-word-3 {
+      --color-1: #ACCFCB;
+      --color-2: #E4A9A8;
+      --color-3: #ACCFCB;
+    }
+
+    .title-word-4 {
+      --color-1: #3D8DAE;
+      --color-2: #DF8453;
+      --color-3: #E4A9A8;
+    }
+
+    @keyframes color-animation {
+      0% {
+        color: var(--color-1)
+      }
+
+      32% {
+        color: var(--color-1)
+      }
+
+      33% {
+        color: var(--color-2)
+      }
+
+      65% {
+        color: var(--color-2)
+      }
+
+      66% {
+        color: var(--color-3)
+      }
+
+      99% {
+        color: var(--color-3)
+      }
+
+      100% {
+        color: var(--color-1)
+      }
+    }
+
+    /* Here are just some visual styles. 🖌 */
+
+    .container {
+
+      place-items: center;
+      text-align: center;
+      height: 50vh
+    }
+
+    .title {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 800;
+      font-size: 30px;
+      text-transform: uppercase;
+    }
+
+    .b1 {
+      width: 100%;
+      height: 500px;
+      text-align: center;
+      border-radius: 20px;
+      background: rgb(0, 0, 0);
+    }
+
+    .input1 {
+      height: 250px;
+      background-color: #c2ecc4;
+    }
+
+    .file1 {
+      height: 50px;
+    }
+  </style>
+
+
+
+
+
+</head>
+
+<body>
+
+  <header class="home">
+
+    <nav>
+      <h1>al-manoufia <span>University</span></h1>
+      <ul>
+        <li><a href=""> <i class="fa-solid fa-house fa-bounce"></i> Department </a></li>
+        <li><a href=""><i class="fa-solid fa-cable-car fa-flip"></i> Student</a></li>
+        <li><a href=""><i class="fa-solid fa-receipt fa-fade"></i>Subject </a></li>
+        <li><a href=""><i class="fa-solid fa-pencil fa-bounce"></i> sss </a></li>
+      </ul>
+      <div>
+        <input type="checkbox" class="checkbox" id="checkbox">
+
+        <label for="checkbox" class="checkbox-label">
+          <i class="bx bxs-moon"></i>
+          <i class="bx bxs-sun"></i>
+          <span class="ball"></span>
+        </label>
+
+      </div>
+
+    </nav>
+
+
+
+  </header>
+  <section class="backgrond">
+
+  </section>
+
+  <section class="tt1" id="home">
+
+    <div class="imge">
+      <img src="/images/Code typing-bro 2.svg" alt="">
+
+    </div>
+    <section class="z">
+
+
+      <div class="b1">
+        <br><br>
+
+        <ul>
+           <% courseMaterial.forEach(function(file){ %>
+          <li><img height="30" width="30" src="/images/pdf.png"><a href="/doctors/<%= id %>/<%= course %>/<%= file %>"><%= file %></a></li>
+           <% }); %>
+        </ul>
+      </div>
+
+    </section>
+
+
+
+
+
+
+
+
+    <section class="z2">
+      <div class="b">
+
+        <div class="container">
+          <h2 class="title">
+            <span class="title-word title-word-1">upload</span>
+            <span class="title-word title-word-2">course</span>
+            <span class="title-word title-word-3">files</span>
+          </h2>
+          <div class="input1">
+            <form action="/doctors/<%= id %>/<%= course %>/upload-pdf" method="post" enctype="multipart/form-data">
+              <input type="file" name="myFiles" multiple required><br>
+              <button type="submit">upload</button>
+            </form>
+          </div>
+        </div>
+
+      </div><br><br>
+      <div class="container">
+        <h2 class="title">
+          <div class="input1">
+            <form method="POST" enctype="multipart/form-data" action="/doctors/<%= id %>/<%= course %>/upload-scores">
+              <span class="title-word title-word-1">upload</span>
+            <span class="title-word title-word-2">score</span>
+            <span class="title-word title-word-3">file</span>
+              <label for="file">Choose an XLSX file:</label>
+              <input type="file" id="file" name="file" required>
+              <input type="submit" value="Submit" onclick="return validateFile()">
+            </form>
+          </div>
+      </div>
+      </div>
+
+
+    </section>
+
+    <script>
+      const input = document.querySelector('input[type="file"]');
+      input.addEventListener('change', (event) => {
+        const fileList = event.target.files;
+        for (let i = 0; i < fileList.length; i++) {
+          const file = fileList[i];
+          console.log(file.name);
+        }
+      });
+    </script>
+</body>
+
+</html>
+
+<script>
+  function validateFile() {
+    var fileInput = document.getElementById('file');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.xlsx)$/i;
+
+    if (!allowedExtensions.exec(filePath)) {
+      alert('Please upload file in XLSX format only.');
+      fileInput.value = '';
+      return false;
+    }
+    return true;
+  }
+</script>
+</script>
+<script src="/all.min.js"></script>
+<script>
