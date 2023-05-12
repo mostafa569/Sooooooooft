@@ -120,7 +120,7 @@ router.post('/:id/add-student', isAdmin, async (req, res) => {
     const department = req?.body?.department;
     const level = req?.body?.level;
     const nationalID = req?.body?.nationalid;
-    const coursesArray = [""];
+    const coursesArray = [];
 
     await Students.findOne({ nationalid: nationalID }).then(async (student) => {
         if (student) {
@@ -168,8 +168,45 @@ router.post('/:id/add-student', isAdmin, async (req, res) => {
 
 });
 
+router.post('/:id/generate-sheet', isAdmin, async (req, res) => {
+    const id = req?.params?.id;
+    const code = req.body.code;
+    try {
+        const student = await Students.findOne({ courses: code });
+        if (student) {
+            const data = await Students.find({ courses: code }).select(`name courses academicnumber`).exec();
 
+            // create a new Excel workbook and worksheet
+            const workbook = new ExcelJS.Workbook();
+            const worksheet = workbook.addWorksheet('Students');
 
+            // add the headers for the 3 columns
+
+            worksheet.columns = [
+                { header: 'Academic Number', key: 'academicnumber' },
+                { header: 'Name', key: 'name' },
+                { header: 'courses', key: `courses` },
+                { header: 'Score', key: 'Score' }
+            ];
+
+            // add the data to the worksheet
+            data.forEach(item => {
+
+                worksheet.addRow({
+                    name: item.name,
+                    courses: code,
+                    academicnumber: item.academicnumber
+                });
+            });
+
+            // save the Excel file to disk
+            await workbook.xlsx.writeFile(`${code}.xlsx`);
+            console.log('Data exported to Excel file!');
+        }
+    } catch (error) {
+        console.error(error);
+    }
+});
 
 
 
