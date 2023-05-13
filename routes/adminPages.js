@@ -170,34 +170,86 @@ router.post('/:id/add-student', isAdmin, async (req, res) => {
 
 
 
+router.post('/:id/delete-doctor', isAdmin, async (req, res) => {
+    const id = req?.params?.id;
+    const docId = req?.body?.docId;
+
+    Doctors.findOneAndDelete({ docID: docId }).then(doctor => {
+        if (doctor) {
+            //req.flash
+            res.redirect('/admin-area/' + id);
+        } else {
+            //req.flash
+            res.redirect('/admin-area/' + id);
+        }
+    }).catch(err => {
+        if (err)
+            console.log(err);
+    });
+
+});
+router.post('/:id/add-doctor', isAdmin, async (req, res) => {
+    const id = req?.params?.id;
+    const name = req?.body?.name;
+    const department = req?.body?.department;
+    const nationalID = req?.body?.nationalid;
+    const coursesArray = [];
+
+    await Doctors.findOne({ nationalid: nationalID }).then(async (doctor) => {
+        if (doctor) {
+            //req.flash
+            res.redirect('/admin-area/' + id);
+        } else {
+            const username = generateUserName('Doctor');;
+            const password = generateRandomPassword(nationalID);
+            var sequence = 0;
+
+            await Doctorcounter.findOneAndUpdate({ id: "doctorNumber" }, { "$inc": { "Seq": 1 } }, { new: true }).then((count) => {
+                if (!count) {
+                    const dc = new Doctorcounter({ id: "doctorNumber", Seq: 2000001 });
+                    dc.save().catch((err) => {
+                        if (err)
+                            console.log(err);
+                    });
+
+                    sequence = 2000001;
+
+                } else {
+
+                    sequence = count.Seq;
+
+                }
+            }).catch((err) => {
+                if (err)
+                    console.log(err);
+            });
+
+            const doctor = new Doctors({ name: name, username: username, courses: coursesArray, docID: sequence, password: password, nationalid: nationalID, department: department });
+            doctor.save().catch((err) => {
+                if (err)
+                    console.log(err);
+            });
+            let path = `public/courses/${doctor._id}`
+            fs.mkdirSync(path, { recursive: true });
+
+            //req.flash
+            res.redirect('/admin-area/' + id);
+
+        }
+    }).catch(err => {
+        if (err)
+            console.log(err);
+    });
+
+
+});
 
 
 
-function generateUserName(type) {
-    let result = '';
-    const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-    const charactersLength = characters.length;
-    for (let i = 0; i < 5; i++) {
-        result += characters.charAt(Math.floor(Math.random() * charactersLength));
-    }
-    if (type == 'Doctor') {
-        return 200 + result;
-    }
-    else {
-        return 300 + result;
-    }
-}
 
 
-function generateRandomPassword(nationalid) {
-    const charset = nationalid + "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    let password = "";
-    for (let i = 0; i < 8; i++) {
-        const randomIndex = Math.floor(Math.random() * charset.length);
-        password += charset[randomIndex];
-    }
-    return password;
-}
+
+
 
 
 
