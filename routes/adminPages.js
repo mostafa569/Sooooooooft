@@ -168,9 +168,89 @@ router.post('/:id/add-student', isAdmin, async (req, res) => {
 
 });
 
+router.post('/:id/assign-course', isAdmin, async (req, res) => {
+    const id = req?.params?.id;
+    const courseid = req?.body?.code;
+    const DId = req?.body?.DocId;
+    console.log(DId);
+    var cour = [];
+    await Doctors.findOne({ docID: DId }).then((doc) => {
+
+        if (doc) {
+            if (doc.courses.length !== 0) {
+                for (let i = 0; i < doc.courses.length; i++) {
+                    cour[i] = doc.courses[i]
+                }
+            }
+
+
+            Courses.findOne({ code: courseid }).then((f) => {
+
+                if (f) {
+
+                    cour.push(f.code);
+
+                    doc.updateOne({ courses: cour }).catch((error) => console.error(error));
+                    let path = `public/courses/${doc._id}/${f.code}`
+                    fs.mkdirSync(path, { recursive: true });
+
+                }
+
+            });
+
+            res.redirect('/admin-area/' + id);
+
+        } else {
+            res.redirect('/admin-area/' + id);
+        }
 
 
 
+    }).catch(err => {
+        if (err)
+            console.log(err);
+    });
+
+
+
+
+});
+
+router.post('/:id/delete-department', isAdmin, async (req, res) => {
+    const id = req?.params?.id;
+    const code = req?.body?.code;
+   
+
+    await Departments.findOne({ code: code }).then(dept => {
+        if (dept) {
+            Students.findOne({ department: dept }).then(student => {
+                if (student) {
+                    //req.flash
+                    res.redirect('/admin-area/' + id);
+                } else {
+                    Departments.deleteOne({ code: code }).catch(err => {
+                        if (err)
+                            console.log(err);
+                    });
+                    //req.flash
+                    res.redirect('/admin-area/' + id);
+                }
+            }).catch(err => {
+                if (err)
+                    console.log(err);
+            });
+        } else {
+            //req.flash
+            res.redirect('/admin-area/' + id);
+        }
+    }).catch(err => {
+        if (err)
+            console.log(err);
+    });
+
+
+
+});
 
 
 function generateUserName(type) {
@@ -198,6 +278,11 @@ function generateRandomPassword(nationalid) {
     }
     return password;
 }
+
+
+
+
+
 
 
 
