@@ -120,7 +120,7 @@ router.post('/:id/add-student', isAdmin, async (req, res) => {
     const department = req?.body?.department;
     const level = req?.body?.level;
     const nationalID = req?.body?.nationalid;
-    const coursesArray = [""];
+    const coursesArray = [];
 
     await Students.findOne({ nationalid: nationalID }).then(async (student) => {
         if (student) {
@@ -168,90 +168,40 @@ router.post('/:id/add-student', isAdmin, async (req, res) => {
 
 });
 
-
-
-router.post('/:id/delete-doctor', isAdmin, async (req, res) => {
+router.post('/:id/generate-sheet', isAdmin, async (req, res) => {
     const id = req?.params?.id;
-    const docId = req?.body?.docId;
+    const code = req.body.code;
+    try {
+        const student = await Students.findOne({ courses: code });
+        if (student) {
+            const data = await Students.find({ courses: code }).select(`name courses academicnumber`).exec();
 
-    Doctors.findOneAndDelete({ docID: docId }).then(doctor => {
-        if (doctor) {
-            //req.flash
-            res.redirect('/admin-area/' + id);
-        } else {
-            //req.flash
-            res.redirect('/admin-area/' + id);
-        }
-    }).catch(err => {
-        if (err)
-            console.log(err);
-    });
+            // create a new Excel workbook and worksheet
+            const workbook = new ExcelJS.Workbook();
+            const worksheet = workbook.addWorksheet('Students');      worksheet.columns = [
+                { header: 'Academic Number', key: 'academicnumber' },
+                { header: 'Name', key: 'name' },
+                { header: 'courses', key: `courses` },
+                { header: 'Score', key: 'Score' }
+            ];
 
-});
-router.post('/:id/add-doctor', isAdmin, async (req, res) => {
-    const id = req?.params?.id;
-    const name = req?.body?.name;
-    const department = req?.body?.department;
-    const nationalID = req?.body?.nationalid;
-    const coursesArray = [];
+            // add the data to the worksheet
+            data.forEach(item => {
 
-    await Doctors.findOne({ nationalid: nationalID }).then(async (doctor) => {
-        if (doctor) {
-            //req.flash
-            res.redirect('/admin-area/' + id);
-        } else {
-            const username = generateUserName('Doctor');;
-            const password = generateRandomPassword(nationalID);
-            var sequence = 0;
 
-            await Doctorcounter.findOneAndUpdate({ id: "doctorNumber" }, { "$inc": { "Seq": 1 } }, { new: true }).then((count) => {
-                if (!count) {
-                    const dc = new Doctorcounter({ id: "doctorNumber", Seq: 2000001 });
-                    dc.save().catch((err) => {
-                        if (err)
-                            console.log(err);
-                    });
-
-                    sequence = 2000001;
-
-                } else {
-
-                    sequence = count.Seq;
-
-                }
-            }).catch((err) => {
-                if (err)
-                    console.log(err);
+                worksheet.addRow({
+                    name: item.name,
+                    courses: code,
+                    academicnumber: item.academicnumber
+                });
             });
 
-            const doctor = new Doctors({ name: name, username: username, courses: coursesArray, docID: sequence, password: password, nationalid: nationalID, department: department });
-            doctor.save().catch((err) => {
-                if (err)
-                    console.log(err);
-            });
-            let path = `public/courses/${doctor._id}`
-            fs.mkdirSync(path, { recursive: true });
-
-            //req.flash
-            res.redirect('/admin-area/' + id);
-
+            // save the Excel file to disk
+            await workbook.xlsx.writeFile(`${code}.xlsx`);
+            console.log('Data exported to Excel file!');
         }
-    }).catch(err => {
-        if (err)
-            console.log(err);
-    });
-
-
+    } catch (error) {
+        console.error(error);
+    }
 });
-
-
-
-
-
-
-
-
-
-
-module.exports = router;
 
