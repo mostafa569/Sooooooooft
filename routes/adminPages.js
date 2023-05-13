@@ -178,11 +178,7 @@ router.post('/:id/generate-sheet', isAdmin, async (req, res) => {
 
             // create a new Excel workbook and worksheet
             const workbook = new ExcelJS.Workbook();
-            const worksheet = workbook.addWorksheet('Students');
-
-            // add the headers for the 3 columns
-
-            worksheet.columns = [
+            const worksheet = workbook.addWorksheet('Students');      worksheet.columns = [
                 { header: 'Academic Number', key: 'academicnumber' },
                 { header: 'Name', key: 'name' },
                 { header: 'courses', key: `courses` },
@@ -191,6 +187,7 @@ router.post('/:id/generate-sheet', isAdmin, async (req, res) => {
 
             // add the data to the worksheet
             data.forEach(item => {
+
 
                 worksheet.addRow({
                     name: item.name,
@@ -207,10 +204,4 @@ router.post('/:id/generate-sheet', isAdmin, async (req, res) => {
         console.error(error);
     }
 });
-
-
-
-
-
-module.exports = router;
 
