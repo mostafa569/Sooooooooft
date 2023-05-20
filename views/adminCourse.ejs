@@ -42,7 +42,7 @@
 
     <br>
     <div class="tt6">
-        
+        <%- messages('messages', locals) %>
     </div>
     <br>
 
@@ -61,7 +61,7 @@
             <div class="b">
                 <br><br>
                 <div  class="l" ><h1> <span>Delete </span> course </h1></div><br>
-                <form id="department-addition" action=" " method="post" >
+                <form id="department-addition" action="/admin-area/<%= id %>/courses/delete-course" method="post" >
                     <br>
         
 
@@ -78,7 +78,7 @@
             <div class="b">
                 <br>
                 <div  class="l" ><h1> <span>Assign </span>course </h1></div><br>
-                <form id="department-addition" action="" method="post">
+                <form id="department-addition" action="/admin-area/<%= id %>/courses/assign-course" method="post">
                     
 
                     <input type="text" placeholder="code" name="code" required><br>
@@ -100,15 +100,15 @@
             <div class="g">
                 <br><br>
                 <div  class="l" ><h1> <span>Add </span>course</h1></div><br>
-                <form id="course-addition" action="" method="post">
+                <form id="course-addition" action="/admin-area/<%= id %>/courses/add-course" method="post">
                     <input type="text" placeholder="Name" name="name" required ><br><br>
                     <input type="text" placeholder="Code" name="code" required><br><br>
                     <input type="text" placeholder="prereq" name="prereq" ><br><br>
                     <select class="select" name="department" required>
                         <option value="" disabled selected>Select department</option>
-                        
-                          <option value=""> </option>
-                        
+                        <% departments.forEach((dept) => { %>
+                          <option value="<%= dept.name %>"><%= dept.name %></option>
+                        <% }); %>
                       </select>
                     
 
