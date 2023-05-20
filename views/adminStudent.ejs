@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/all.min.css">
+        <link rel="stylesheet" href="/css/Adminhome.css">
+        
+    </head>
+    <body>
+        <header class="home"  >
+            
+            <nav>
+                <h1>Manoufia <span>University</span></h1>
+                <ul>
+                    <li><a href="/admin-area/<%= id %>/departments"> <i class="fa-solid fa-house fa-bounce"></i> Department </a></li>
+                    <li><a href="/admin-area/<%= id %>/students"><i class="fa-solid fa-cable-car fa-flip"></i> Student</a></li>
+                    <li><a href="/admin-area/<%= id %>/courses"><i class="fa-solid fa-receipt fa-fade"></i>Course </a></li> 
+                    <li><a href="/admin-area/<%= id %>/doctors"><i class="fa-solid fa-receipt fa-fade"></i>Doctor </a></li> 
+                    
+                    
+                </ul>
+                <div>
+                    <input type="checkbox" class="checkbox" id="checkbox">
+                 
+                  <label for="checkbox" class="checkbox-label">
+                    <i class="bx bxs-moon"></i>
+                    <i class="bx bxs-sun"></i>
+                    <span class="ball"></span>
+                  </label>
+                
+                  </div>
+                  
+            </nav>
+           
+           
+    
+        </header>
+        
+        <br>
+        <div class="tt6">
+            <%- messages('messages', locals) %>
+        </div>
+        <br>
+        <br>
+    <section class="tt9" id="">
+            <div class="os">
+                <i class="fa-solid fa-forward-step fa-shake" style="color: #511f1f; height: 50px; padding-right:210px; "></i> 
+                <h2 class="h1">Student</h2>
+                 <i class="fa-solid fa-backward-step fa-shake" style="color: #511f1f; height: 50px; padding-left:210px;"></i>
+            </div>
+
+            <div class="img">
+                <section  class="z9">
+                    
+            
+                    <div class="b">
+                        <br>
+                        <div  class="l" ><h1> <span>Delete </span> student</h1></div>
+                        <form id="department-addition" action="/admin-area/<%= id %>/students/delete-student" method="post" >
+                            <br>
+                
+    
+                            <input type="text" placeholder="academicnumber" name="academicnumber" required><br><br>
+                           
+                            <div class="login" > <i style="color: brown; height: 25px;" class="fa-solid fa-right-from-bracket fa-shake"></i><input class="nn" type="submit" value="generate"> <i style="color: brown; height: 25px;" class="fa-solid fa-right-from-bracket  fa-rotate-180 "></i></div> 
+                        </form>
+                       </div>
+                
+                </section>
+                
+            </div>
+            
+                
+
+                    <section  class="yy1">
+                    
+            
+                        <div class="material">
+                            <br>
+                            <div  class="l" ><h1> <span>Add </span>student</h1></div><br>
+                            <form id="student-addition" action="/admin-area/<%= id %>/students/add-student" method="post">
+                                <input type="text" placeholder="Name" name="name" required><br><br>
+                                <select class="select" name="department" required>
+                                    <option value="" disabled selected>Select department</option>
+                                    <% departments.forEach((dept) => { %>
+                                      <option value="<%= dept.name %>"><%= dept.name %></option>
+                                    <% }); %>
+                                  </select><br><br>
+
+                                <input list="levels" placeholder="Level" name="level" required>
+                                  <datalist id="levels">
+                                  
+                                      <option value="1">
+                                        <option value="2">
+                                            <option value="3">
+                                                <option value="4">
+                                         
+                                  
+                                </datalist><br><br>
+                                <input type="text" placeholder="nationalid" name="nationalid" required><br><br>
+                                <div class="login">
+                                    <i style="color: brown; height: 25px;" class="fa-solid fa-right-from-bracket fa-shake"></i> 
+                                    <input class="nn" type="submit" value="Addition"> 
+                                    <i style="color: brown; height: 25px;" class="fa-solid fa-right-from-bracket  fa-rotate-180 "></i>
+                                </div> 
+                            </form>
+                           </div>
+                    
+                    </section>
+                   
+                    
+                  
+           </section><br><br>     
+           <script src="/all.min.js"></script> 
+           <script>
+            const checkbox = document. getElementById("checkbox")
+            checkbox.addEventListener("change", () => 
+           { document.body.classList.toggle("dark")})
+          </script>
+         
+          <script>
+            // var inputIndex = 0;
+    
+            // function addNewInputs() {
+            //     // $$$$$$$$
+            //     var newContainer = document.createElement("div");
+            //     newContainer.classList.add("input-container");
+            //     // $$$$$INPUT TEXT
+            //     var newInput1 = document.createElement("input");
+            //     newInput1.type = "text";
+            //     newInput1.name = "Lin" + inputIndex;
+            //     console.log(newInput1.name)
+            //     // Append the new input to the new container
+            //     newContainer.appendChild(newInput1);
+            //     // Append content
+            //     document.getElementById("container").appendChild(newContainer);
+            //     document.getElementById("container").appendChild(document.createElement("br"));
+            //     // iframe
+            //     var iframeDoc = document.getElementById("output-iframe").contentWindow.document;
+            //     iframeDoc.open();
+            //     iframeDoc.write("<html><head></head><body>" + document.getElementById("container").innerHTML + "</body></html>");
+            //     iframeDoc.close();
+            //     inputIndex++;
+            // }
+        </script>     
+</body>
+</html>
