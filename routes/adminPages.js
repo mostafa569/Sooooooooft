@@ -11,6 +11,7 @@ const Studentcontroller = require('../controllers/adminStudentController');
 
 
 
+
 router.get('/:id/students', isAdmin , Studentcontroller.getStudentPage);
 
 router.post('/:id/students/add-student', isAdmin,Studentcontroller.addStudent);
@@ -25,7 +26,9 @@ router.post('/:id/departments/add-department', isAdmin, Departmentcontroller.add
 
 router.post('/:id/departments/delete-department', isAdmin, Departmentcontroller.deleteDepartment);
 
+
 router.get('/:id/courses', isAdmin , Coursecontroller.getCoursePage);
+
 
 
 router.post('/:id/courses/add-course', isAdmin, Coursecontroller.addCourse);
@@ -48,6 +51,7 @@ router.post('/:id/doctors/add-doctor', isAdmin, Doctorcontroller.addDoctor);
 
 
 router.post('/:id/doctors/delete-doctor', isAdmin, Doctorcontroller.deleteDoctor);
+
 
 
 
