@@ -1,207 +1,66 @@
 const express = require('express');
-const path = require('path');
 const router = express.Router();
-const Admins = require('../models/admin');
-const Students = require('../models/student');
-const Studentcounter = require('../models/studentcounter');
-const Doctorcounter = require('../models/doctorcounter');
-const Doctors = require('../models/doctor');
-const Departments = require('../models/department');
-const Courses = require('../models/course');
 const log = require('../config/auth');
-const ExcelJS = require('exceljs');
-const fs = require('fs-extra');
-var isAdmin = log.isAdmin;
-
-
-router.get('/:id', isAdmin, async (req, res) => {
-
-    const id = req?.params?.id;
-    await Departments.find({}).then((depts) => {
-        res.render('Adminhome.ejs', {
-            id: id,
-            departments: depts
-        });
-    }).catch(err => {
-        if (err)
-            console.log(err);
-    });
+const isAdmin = log.isAdmin;
+const Coursecontroller = require('../controllers/adminCourseController');
+const Departmentcontroller = require('../controllers/adminDepartmentController');
+const Doctorcontroller = require('../controllers/adminDoctorController');
+const Studentcontroller = require('../controllers/adminStudentController');
 
 
 
 
-});
 
-router.post('/:id/add-department', isAdmin, async (req, res) => {
-    const id = req?.params?.id;
-    const name = req?.body?.name;
-    const code = req?.body?.code;
+router.get('/:id/students', isAdmin , Studentcontroller.getStudentPage);
 
-    await Departments.findOne({ code: code }).then(dept => {
-        if (dept) {
-            //req.flash
-            res.redirect('/admin-area/' + id);
-        } else {
-            const dept = new Departments({ name: name, code: code });
-            dept.save().catch((err) => {
-                if (err)
-                    console.log(err);
-            });
-            //req.flash
-            res.redirect('/admin-area/' + id);
-        }
-    }).catch(err => {
-        if (err)
-            console.log(err);
-    });
+router.post('/:id/students/add-student', isAdmin,Studentcontroller.addStudent);
 
 
 
-});
+router.post('/:id/students/delete-student', isAdmin, Studentcontroller.deleteStudent);
 
-router.post('/:id/add-course', isAdmin, async (req, res) => {
-    const id = req?.params?.id;
-    const name = req?.body?.name;
-    const code = req?.body?.code;
-    const department = req?.body?.department;
-    const preReq = req?.body?.prereq
+router.get('/:id/departments', isAdmin , Departmentcontroller.getDepartmentPage);
+
+router.post('/:id/departments/add-department', isAdmin, Departmentcontroller.addDepartment);
+
+router.post('/:id/departments/delete-department', isAdmin, Departmentcontroller.deleteDepartment);
+
+router.get('/:id/courses', isAdmin , Coursecontroller.getCoursePage);
 
 
-    await Courses.findOne({ code: code }).then(course => {
-        if (course) {
-            //req.flash
-            res.redirect('/admin-area/' + id);
-        } else {
-            if (preReq) {
-                Courses.findOne({ code: preReq }).then(c => {
-                    if (c) {
-                        var arr = [preReq];
-                        const cr = new Courses({ name: name, code: code, dept: department, prerequirements: arr });
-                         cr.save().then(() => {
+router.post('/:id/courses/add-course', isAdmin, Coursecontroller.addCourse);
 
-                            //req.flash
-                            res.redirect('/admin-area/' + id);
-                        }).catch(err => {
-                            if (err)
-                                console.log(err);
-                        });
-                    } else {
-                         //req.flash
-                         res.redirect('/admin-area/' + id);
-                    }
-                });
-            }else{
-                const cr = new Courses({ name: name, code: code, dept: department, prerequirements: [""] });
-                         cr.save().then(() => {
+router.post('/:id/courses/generate-sheet', isAdmin, Coursecontroller.generateSheet);
 
-                            //req.flash
-                            res.redirect('/admin-area/' + id);
-                        }).catch(err => {
-                            if (err)
-                                console.log(err);
-                        });
-            }
+
+router.post('/:id/courses/assign-course', isAdmin, Coursecontroller.assignCourse);
 
 
 
-        }
+router.post('/:id/courses/delete-course', isAdmin, Coursecontroller.deleteCourse);
 
 
-    }).catch(err => {
-        if (err)
-            console.log(err);
-    });
-
-});
-
-router.post('/:id/add-student', isAdmin, async (req, res) => {
-    const id = req?.params?.id;
-    const name = req?.body?.name;
-    const department = req?.body?.department;
-    const level = req?.body?.level;
-    const nationalID = req?.body?.nationalid;
-    const coursesArray = [];
-
-    await Students.findOne({ nationalid: nationalID }).then(async (student) => {
-        if (student) {
-            //req.flash
-            res.redirect('/admin-area/' + id);
-        } else {
-            const username = generateUserName('Student');
-            const password = generateRandomPassword(nationalID);
-            var sequence = 0;
-            await Studentcounter.findOneAndUpdate({ id: "studentNumber" }, { "$inc": { "Seq": 1 } }, { new: true }).then((count) => {
-                if (!count) {
-                    const sc = new Studentcounter({ id: "studentNumber", Seq: 3000001 });
-                    sc.save().catch((err) => {
-                        if (err)
-                            console.log(err);
-                    });
-
-                    sequence = 3000001;
-                } else {
-                    sequence = count.Seq;
-
-                }
-            }).catch((err) => {
-                if (err)
-                    console.log(err);
-            });
-
-            const student = new Students({ name: name, username: username, courses: coursesArray, password: password, academicnumber: sequence, nationalid: nationalID, department: department, level: level });
-            student.save().catch((err) => {
-                if (err)
-                    console.log(err);
-            });
-
-            //req.flash
-            res.redirect('/admin-area/' + id);
+router.get('/:id/doctors', isAdmin , Doctorcontroller.getDoctorPage);
 
 
-        }
-    }).catch(err => {
-        if (err)
-            console.log(err);
-    });
+router.post('/:id/doctors/add-doctor', isAdmin, Doctorcontroller.addDoctor);
 
 
 
-});
-
-router.post('/:id/generate-sheet', isAdmin, async (req, res) => {
-    const id = req?.params?.id;
-    const code = req.body.code;
-    try {
-        const student = await Students.findOne({ courses: code });
-        if (student) {
-            const data = await Students.find({ courses: code }).select(`name courses academicnumber`).exec();
-
-            // create a new Excel workbook and worksheet
-            const workbook = new ExcelJS.Workbook();
-            const worksheet = workbook.addWorksheet('Students');      worksheet.columns = [
-                { header: 'Academic Number', key: 'academicnumber' },
-                { header: 'Name', key: 'name' },
-                { header: 'courses', key: `courses` },
-                { header: 'Score', key: 'Score' }
-            ];
-
-            // add the data to the worksheet
-            data.forEach(item => {
+router.post('/:id/doctors/delete-doctor', isAdmin, Doctorcontroller.deleteDoctor);
 
 
-                worksheet.addRow({
-                    name: item.name,
-                    courses: code,
-                    academicnumber: item.academicnumber
-                });
-            });
 
-            // save the Excel file to disk
-            await workbook.xlsx.writeFile(`${code}.xlsx`);
-            console.log('Data exported to Excel file!');
-        }
-    } catch (error) {
-        console.error(error);
-    }
-});
+
+
+
+
+
+
+
+
+
+
+
+module.exports = router;
 

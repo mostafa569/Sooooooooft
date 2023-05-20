@@ -6,21 +6,25 @@ const path = require('path');
 
 
 router.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public/index.html'));
+  res.render('index.ejs')
+});
+
+router.post('/', (req, res) => {
+  req.flash('danger','please check your type');
+  res.render('index.ejs')
 });
 
 
 router.post("/admin", passport.authenticate('admin', {
-  failureRedirect: '/login',
+  failureRedirect: '/',
   failureFlash: true
 }), function (req, res) {
- 
-    res.redirect('/admin-area/'+ req?.user?._id);
+    res.redirect('/admin-area/'+ req?.user?._id +'/departments');
   
 });
 
 router.post("/student",  passport.authenticate('student', {
-  failureRedirect: '/login',
+  failureRedirect: '/',
   failureFlash: true
 }), function (req, res) {
   
@@ -30,7 +34,7 @@ router.post("/student",  passport.authenticate('student', {
 
 
 router.post("/doctor", passport.authenticate('doctor', {
-  failureRedirect: '/login',
+  failureRedirect: '/',
   failureFlash: true
 }), function (req, res) {
  
