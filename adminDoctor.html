@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="all.min.css">
+        <link rel="stylesheet" href="Adminhome.css">
+        
+    </head>
+    <body>
+        <header class="home"  >
+            
+            <nav>
+                <h1>Manoufia <span>University</span></h1>
+                <ul>
+                    <li>
+                        <a href=""> 
+                          <i class="fa-solid fa-house fa-bounce"></i> Department 
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fa-solid fa-cable-car fa-flip"></i> Student
+                        </a>
+                    </li>
+                    <li>
+                        <a href="">
+                            <i class="fa-solid fa-receipt fa-fade"></i> Course 
+                        </a>
+                    </li> 
+                    <li>
+                        <a href="">
+                            <i class="fa-solid fa-user-doctor fa-bounce"></i> Doctor
+                        </a>
+                    </li> 
+                    
+                    
+                </ul>
+                <div>
+                   <input type="checkbox" class="checkbox" id="checkbox">
+             
+                   <label for="checkbox" class="checkbox-label">
+                      <i class="bx bxs-moon"></i>
+                      <i class="bx bxs-sun"></i>
+                      <span class="ball"></span>
+                   </label>
+            
+                </div>
+              
+            </nav>
+       
+       
+
+         </header>
+
+    <br>
+    <div class="tt6">
+      
+    </div>
+    <br>
+    <br>
+    
+    <section class="tt8" id=""> 
+
+        <div class="os">
+
+            <i class="fa-solid fa-forward-step fa-shake" style="color: #511f1f; height: 50px; padding-right:210px;"></i> 
+
+                 <h2 class="h1">Doctor</h2> 
+
+            <i class="fa-solid fa-backward-step fa-shake" style="color: #511f1f; height: 50px; padding-left:210px;"></i>
+
+        </div>
+
+        <div class="img">
+            
+            <section  class="z9">
+                
+        
+                <div class="b">
+                    
+                    <br>
+                    
+                    <div  class="l" >
+                        
+                        <h1>
+
+                             <span>Delete </span>  doctor
+
+                        </h1>
+                    
+                    </div>
+                   
+                    <form id="department-addition" >
+                        
+                        <br>
+            
+
+                        <input type="text" placeholder="DocID" name="docId" required>
+
+                        <br>
+                        <br>
+                       
+                       
+                       
+                        <div class="login" >
+                           
+                           
+                            <i style="color: brown; height: 25px;" class="fa-solid fa-right-from-bracket fa-shake"></i>
+                               
+                              <input class="nn" type="submit" value="generate"> 
+                            
+                            <i style="color: brown; height: 25px;" class="fa-solid fa-right-from-bracket  fa-rotate-180 "></i>
+                        
+                        
+                        </div> 
+                    
+                    
+                    </form>
+                
+                
+                </div>
+            
+            </section>
+            
+        </div>
+        
+     
+         
+
+             <section  class="yy2">
+             
+     
+                 <div class="accont">
+
+                      <br> 
+                      <br>
+
+                     <div  class="pp1" >
+
+                        <h1>
+
+                            <span> Add</span> doctor
+
+                        </h1>
+
+                     </div>
+                     <br>
+                        
+                        <form id="doctor-addition">
+                              
+                             <input type="text" placeholder="name" name="name" required><br><br>
+                            
+                             <input type="text" placeholder="nationalid" name="nationalid" required><br><br>
+                                
+                             
+                                 <select class="select" name="department" required>
+
+                                     <option value="" disabled selected>Select department</option>
+                            
+                                     <option value=""></option>
+                         
+                                 </select>
+                                   
+                                 
+                                 <br><br>
+                                 
+                                 
+                                 <div class="login" >
+                                     
+                                    <i style="color: brown; height: 25px;" class="fa-solid fa-right-from-bracket fa-shake"></i>
+                                         
+                                         <input class="nn" type="submit" value="Addition"> 
+                                     
+                                    <i style="color: brown; height: 25px;" class="fa-solid fa-right-from-bracket  fa-rotate-180 "></i>
+                                 </div> 
+                        
+                        
+                        
+                        
+                        </form>
+                
+                
+                
+                
+                 </div>
+             
+             </section>
+             
+           
+    </section><br><br>
+    <script src="all.min.js"></script>
+    <script>
+        const checkbox = document. getElementById("checkbox")
+        checkbox.addEventListener("change", () => 
+       { document.body.classList.toggle("dark")})
+      </script>
+</body>
+</html>
