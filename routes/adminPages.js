@@ -51,16 +51,5 @@ router.post('/:id/doctors/delete-doctor', isAdmin, Doctorcontroller.deleteDoctor
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 module.exports = router;
 
