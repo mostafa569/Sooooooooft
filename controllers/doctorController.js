@@ -8,8 +8,7 @@ const UPLOAD = multer({ dest: 'uploads/' });
 const XLSX = require('xlsx');
 
 
-
-
+ 
  
 
   let getDoctorHome= async(req,res)=>{
@@ -22,6 +21,7 @@ const XLSX = require('xlsx');
     }
 
   };
+ 
 
    
 
@@ -102,3 +102,9 @@ const XLSX = require('xlsx');
 
 
   module.exports={getDoctorHome, uploadScores};
+ 
+ 
+
+
+  module.exports={getDoctorHome };
+ 
