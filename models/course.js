@@ -17,7 +17,10 @@ const courseSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    prerequirements: [String]
+    docId:  {
+        type: Number
+    },
+    prerequirements: String
 });
 
 //4)create model

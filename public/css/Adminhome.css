@@ -1,4 +1,5 @@
-*{
+
+    *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -106,21 +107,36 @@ body{
     float: right;
     width: 45%;
     height: 200px;
-    padding-top: 200px;
+    padding-top:90px;
     padding-right: 100px;
 }
 .z{
     width: 45%;
-    padding-top: 100px;
+    padding-top: 135px;
     padding-left: 100px;
+    
+}
+.z2{
+    width: 45%;
+   
+    padding-left: 100px;
+    padding-bottom: 10px;
+}
+.z9{
+    width: 80%;
+   
+    padding-left: 50px;
     padding-bottom: 10px;
 }
 .b{
     width:100%;
-    height:300px;
+    height:320px;
     text-align: center; 
     border-radius: 20px;
     background: rgb(0, 0, 0);
+    box-shadow: 0 0 0 4px yellow,
+      0 0 0 8px yellowgreen,
+      0 0 0 12px red;
 }
 .b:hover{
     transform: scale(1.01);
@@ -141,10 +157,11 @@ input{
     border-radius: 10px;
     padding: 4px;
     color: rgb(0, 0, 0);
+    box-shadow: 0 0 0 4px white;
 }
 input:focus{
     background: rgb(255, 255, 255);
-    transform: scale(1.1);
+    transform: scale(1.07);
 }
 .nn{
     font: bold 25px Arial;
@@ -157,39 +174,130 @@ input:focus{
     border-bottom: 1px solid #0e1061;
     border-left: 1px solid #1114c6;
     border-radius: 5px;
-    
+    width: 50%; 
 }
 .e{
     padding-left:100px ;
     width: 45%;
+    padding-top: 70px;
 }
 .e:hover{
     transform: scale(1.01);
 }
 .g{
     width:100%;
-    height: 400px;
+    height: 475px;
     text-align: center;
     border-radius: 20px;
     background: rgba(0, 0, 0);   
+    box-shadow: 0 0 0 4px yellow,
+      0 0 0 8px yellowgreen,
+      0 0 0 12px red;
 }
 a:focus{
     background: rgb(0, 0, 0);
     transform: scale(1.1);
 }
 .tt1{
-    width: 100%;
-    height: 100vh;
+    width: 90%;
+    height: 90vh;
+    box-shadow: 0 0 0 4px yellow,
+      0 0 0 8px yellowgreen,
+      0 0 0 12px red;
+      margin: auto;
+     
 }
-.h2{
-    color: deeppink;
-    padding-top: 100px;
+.tt10{
+    width: 90%;
+    height: 95vh;
+    box-shadow: 0 0 0 4px rgb(0, 0, 0),
+      0 0 0 8px rgb(51, 59, 175),
+      0 0 0 12px rgb(0, 0, 0);
+      margin: auto;
+      padding-top: 100px;
+      
+     
+}
+.tt9{
+    width: 90%;
+    height: 95vh;
+    box-shadow: 0 0 0 4px rgb(0, 0, 0),
+      0 0 0 8px rgb(51, 59, 175),
+      0 0 0 12px rgb(0, 0, 0);
+    
+      margin: auto;
+      padding-top: 100px;
+      
+     
+}
+.tt8{
+    width: 90%;
+    height: 95vh;
+    box-shadow: 0 0 0 4px rgb(0, 0, 0),
+      0 0 0 8px rgb(51, 59, 175),
+      0 0 0 12px rgb(0, 0, 0);
+      margin: auto;
+      padding-top: 100px;
+      
+}
+.tt7{
+    width: 90%;
+    height: 160vh;
+    box-shadow: 0 0 0 4px rgb(0, 0, 0),
+      0 0 0 8px rgb(51, 59, 175),
+      0 0 0 12px rgb(0, 0, 0);
+      margin: auto;
+      padding-top: 100px;
+      
+}
+.tt6{
+    width: 90%;
+    max-height: 100vh;
+    
+    box-shadow: 0 0 0 4px rgb(0, 0, 0),
+      0 0 0 8px rgb(51, 59, 175),
+      0 0 0 12px rgb(0, 0, 0);
+      margin: auto;
+      padding-top: 100px;
+      
+}
+.h1{
+    color: rgb(0, 0, 0);
+    
     font-size: 40px;
+	letter-spacing: 5px ;
+	text-transform: uppercase;
+	line-height: 0.2;
+	height: 100px;
+	width: 12%;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center ;
+	
  }
- .h1{
-    color: deeppink;
-    padding-top: 100px;
-    font-size: 40px;
+ .h1::before{
+	content: "";
+	position: absolute;
+	left: 0;
+	bottom: 80px;
+	width: 40px;
+	height: 40px;
+	background-color: rgb(124, 24, 24);
+	animation: move 6s linear infinite;
+	z-index: -1;
+ }
+ @keyframes move{
+	0%,100%{
+		left: 0;
+	}
+	50%{
+		left: 100%;
+	}
+ }
+ 
+ .os{
+    padding-top: 50px;
  }
  .img{
     float: right;
@@ -203,10 +311,13 @@ a:focus{
 }
 .material{
     width:100%;
-    height:500px;
+    height:460px;
     text-align: center;
     border-radius: 20px;
     background: rgb(0, 0, 0);
+    box-shadow: 0 0 0 4px yellow,
+      0 0 0 8px yellowgreen,
+      0 0 0 12px red;
 }
 .material:hover{
     transform: scale(1.01);
@@ -216,12 +327,11 @@ a:focus{
     height: 40px;
     font-size: 40px;
     color: rgb(0, 0, 0);
-    
 }
 .yy1{
     width: 45%;
     padding-left: 100px; 
-    padding-top: 100px;
+    padding-top: 80px;
 }
 a:focus{
     background: rgb(248, 248, 248);
@@ -233,55 +343,106 @@ a:focus{
     text-align: center;
     border-radius: 20px;
     background: rgb(0, 0, 0);
+    box-shadow: 0 0 0 4px yellow,
+      0 0 0 8px yellowgreen,
+      0 0 0 12px red;
 }
 .yy2{
     width: 45%;
     padding-left: 100px; 
     padding-top: 110px;
+    
 }
 .backgrond{
     width: 100%;
     min-height: 100vh;
     display: flex;   
     align-items: center;
-    background: url(pexels-mateusz-dach-450035.jpg) no-repeat;
+    background: url("/images/pexels-mateusz-dach-450035.jpg") no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.k{
-    justify-content: space-between;
-    flex-grow: 1;
-    width: 100%;
+.tt5{
+    height: 750px;
+    padding-bottom:500px;
 }
-.x input{
-    width: 20%;
-    height: 15px;
+.select{
+    border-radius: 8px;
+    width: 90%;
+    height: 40px;
+    background: #292c35;
+    color: white;
+    
 }
+.ms{
+  padding-top: -150;
+}
+.tt4{
+    padding-top: 290px;
+}
+.at{
+    
+    width: 45%;
+   
+    padding-left: 100px;
+    padding-bottom: 10px;
+    padding-top: 100px;
+
+}
+.img1{
+    float: right;
+    width: 50%;
+    height: 500px;
+    padding-top: 50px;
+    padding-bottom: 20px;
+}
+.img2{
+    float: right;
+    width: 50%;
+    height: 500px;
+    padding-top: 240px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
