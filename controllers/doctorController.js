@@ -23,6 +23,40 @@ const XLSX = require('xlsx');
   };
  
 
+  let getCourseFiles= async(req,res)=>{
+    const id = req?.params?.id;
+    const courseCode = req?.params?.course;
+    fs.readdir('public/courses/' + id + '/' + courseCode, function (err, files) {
+      if (err) {
+        console.log(err);
+      } else {
+        var courseMaterial = files;
+        res.render('courses.ejs', {
+          id: id,
+          course: courseCode,
+          courseMaterial: courseMaterial
+        });
+      }
+    });
+  
+  };
+
+
+  let getFile= async(req,res)=>{
+    res.render('pdf.ejs', {
+        doc: req?.params?.id,
+        course: req?.params?.course,
+        file: req?.params?.name
+    
+      })
+  };
+
+ 
+
+
+ 
+ 
+
    
 
 
@@ -101,10 +135,6 @@ const XLSX = require('xlsx');
   };
 
 
-  module.exports={getDoctorHome, uploadScores};
- 
- 
+   module.exports={getDoctorHome, getCourseFiles,getFile,uploadPdf,uploadScores,upload,UPLOAD};
 
-
-  module.exports={getDoctorHome };
  
