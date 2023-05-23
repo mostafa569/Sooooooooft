@@ -22,6 +22,15 @@ router.get('/:id/:course/:name',isDoctor,controller.getFile);
 
  
 
+router.post('/:id/:course/upload-pdf', isDoctor, controller.upload.array('myFiles'),controller.uploadPdf);
+
+
+
+router.post('/:id/:course/upload-scores', isDoctor, controller.UPLOAD.single('file'),controller.uploadScores);
+ 
+ 
+ 
+
 
 
 
