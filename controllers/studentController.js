@@ -26,6 +26,52 @@ let getStudentHome = async (req, res) => {
   });
 
 };
- 
 
-module.exports = { getStudentHome  };
+
+let enrollment = async (req, res) => {
+  var courseArr = JSON.parse(req?.body?.coursesarray);
+  var arr=[];
+  if (courseArr) {
+    if(courseArr.length >=4){
+      if(courseArr.length <=6){
+        for(let i =0; i<courseArr.length ; i++){
+          arr[i]=courseArr[i];
+        
+        }
+        Student.findById({ _id: req?.params?.id }).then(student=>{
+          for(let i =0; i<student.courses.length ; i++){
+              arr[arr.length+i]=student.courses[i];
+          }
+         
+          student.updateOne({ courses: arr }).catch(err=>{
+            if(err)
+            console.log(err);
+          });
+          req.flash('success','you enrolled successfully');
+          res.redirect('/students/'+req?.params?.id +'/enroll');
+        }).catch((err) => {
+          if (err)
+            console.error(err);
+        });
+       
+      }else{
+        req.flash('danger','you can not enroll in more than 6 courses');
+        res.redirect('/students/'+req?.params?.id +'/enroll');
+
+      }
+    }else{
+      req.flash('danger','you can not enroll in less than 4 courses');
+      res.redirect('/students/'+req?.params?.id +'/enroll');
+
+    }
+  } else {
+    req.flash('danger','you must choose courses');
+    res.redirect('/students/'+req?.params?.id +'/enroll');
+
+  }
+
+};
+
+
+
+module.exports = { getStudentHome,  enrollment };
