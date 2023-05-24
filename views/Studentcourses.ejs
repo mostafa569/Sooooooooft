@@ -1,0 +1,105 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body class="backgrond">
+    <style>
+        
+        
+        .tt2{
+      float: left;
+      height: 30px;
+      width: 40px;
+    }
+    
+    .b1 {
+      width: 100%;
+      height: 90vh;
+      text-align: center;
+      border-radius: 20px;
+      background: rgb(0, 0, 0 , 0.9);
+      color: white;
+      text-align: left;
+      box-shadow: 0 0 0 4px rgb(255, 255, 255),
+      0 0 0 8px rgb(0, 0, 0),
+      0 0 0 12px blue;
+      
+      
+     
+    }
+    .z{
+      width: 90%;
+      padding-top: 20px;
+      margin: auto;
+      padding-bottom: 10px;
+      
+
+    }
+    .tt3{
+      float: left;
+      padding-top: 10px;
+      color: rgb(255, 255, 255);
+      font: bold 11px Arial;
+      text-decoration: none;
+      background-color: #000000;
+      color: #ffffff;
+      padding-left: 3px;
+     
+      border-top: 1px solid #555779;
+      border-right: 1px solid #736f7b;
+      border-bottom: 1px solid #41276e;
+      border-left: 1px solid #2a2587;
+      height: 20px;
+      width: 90%;
+      
+      
+      
+    }
+    a{
+      color: white;
+      text-decoration: none;
+      font-size: 25px;
+    }
+    ol{
+        padding-top: 12px;
+        padding-bottom:8px ;
+    }
+   body{
+    margin: 0;
+    padding: 0;
+    background-image: url("/images/pexels-zukiman-mohamad-21787.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+   }
+    
+    
+    
+    </style>
+
+    
+    <section class="z">
+        
+
+        <div class="b1">
+            
+          
+  
+          <ol>
+             
+            <div class="mo">   <% courseMaterial.forEach(function(file){ %>
+              <li><img height="30" width="30" src="/images/pdf.png"><a href="/students/<%= id %>/<%= docId %>/<%= course %>/<%= file %>"><%= file %></a></li><br>
+             
+               <% }); %></div>           
+            
+          </ol><hr color="blue">
+ 
+  
+      </section>
+   </div>
+</body>
+</html>
