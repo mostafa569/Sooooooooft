@@ -27,6 +27,14 @@ let getStudentHome = async (req, res) => {
 
 };
 
+
+
+
+
+
+
+
+
 let getCourseFiles = async (req, res) => {
   const id = req?.params?.id;
   const courseCode = req?.params?.course;
@@ -192,4 +200,6 @@ let enrollment = async (req, res) => {
 
 
 
+
 module.exports = { getStudentHome, getCourseFiles, getFile, getValidCourses, enrollment };
+
